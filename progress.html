@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Progress Bars</title>
+	<style>
+		.progress {
+			display: block;
+			width: 200px;
+			height: 20px;
+			border: solid 1px black;
+			overflow:hidden;
+			margin: 25px;
+		}
+		.resize_bar {
+			display: block;
+			height: 20px;
+			width: 0;
+			background: orange;
+			
+		}
+	</style>
+</head>
+<body>
+	<button id="add-progress-bar">Add Progress Bar</button>
+	<script type="text/javascript">
+		var progressBars = [];
+		document.getElementById('add-progress-bar').addEventListener('click', addProgressBar);
+		function addProgressBar () {
+			var percent = 0;
+		  var newProgessBarContainer = document.createElement("div");
+		  newProgessBarContainer.classList.add("progress");
+		  var newProgressBarResizeDiv = document.createElement("div");
+		  newProgressBarResizeDiv.classList.add("resize_bar");
+		  newProgressBarResizeDiv.setAttribute("id", "bar" + progressBars.length.toString());
+		  newProgessBarContainer.appendChild(newProgressBarResizeDiv);
+		  document.body.appendChild(newProgessBarContainer);
+		  progressBars.push({percent:percent, bar: "bar" + progressBars.length.toString()});
+		  var timer = setInterval(function (){
+		  	if(percent < 100){
+		  		percent += 1
+		  		newProgressBarResizeDiv.style.width = (percent * 2).toString() + "px";
+		  	}else{
+		  		clearInterval(timer);
+		  	}
+		  }, 50);
+		}
+	</script>
+</body>
+</html>
